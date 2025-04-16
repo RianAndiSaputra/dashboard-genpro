@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS for GENPRO application */
+.sidebar-height {
+    height: calc(100vh - 70px);
+}
+
+.genpro-red {
+    background-color: #8B1E3F; /* Adjust this color to match your mockup's maroon/red */
+}
+
+.genpro-yellow {
+    background-color: #E3B505; /* Adjust to match your mockup's yellow */
+}
+
+.genpro-pink {
+    background-color: #DB3069; /* Adjust to match your mockup's pink */
+}
+
+.genpro-purple {
+    background-color: #7F3F98; /* Adjust to match your mockup's purple */
+}
+
+.genpro-blue {
+    background-color: #3F88C5; /* Adjust to match your mockup's blue */
+}
+
+/* Custom styling for the menu items */
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+    background-color: rgba(139, 30, 63, 0.1);
+}
+
+.menu-item.active {
+    background-color: rgba(139, 30, 63, 0.2);
+}
+
+.menu-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.menu-dot.active {
+    background-color: #DB3069;
+}
+
+.menu-dot.inactive {
+    background-color: #d1d5db;
+}
+
+/* Card styling */
+.summary-card {
+    height: 150px;
+    border-radius: 8px;
+    padding: 1.5rem;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
