@@ -24,6 +24,12 @@ Route::get('/Summary-Financial', function () {
 Route::get('/finance-report', function () {
     return view('dashboard.finance-report');
 });
+Route::get('/absen', function () {
+    return view('mente.absen');
+});
+Route::get('/formulir', function () {
+    return view('mente.formulir');
+});
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
 //         'canLogin' => Route::has('login'),

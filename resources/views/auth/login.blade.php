@@ -7,14 +7,14 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body {
-            background-color: #580720; /* Dark maroon background */
+            background-color: #440519; /* Dark maroon background */
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0;
             font-family: 'Poppins', Arial, sans-serif;
-            background-image: linear-gradient(135deg, #580720 0%, #7a0e2f 100%);
+            background-image: linear-gradient(135deg, #2c0210 0%, #2c000d 100%);
         }
         
         .login-container {
@@ -152,7 +152,7 @@
         .alert-error {
             background-color: #f8d7da;
             color: #721c24;
-            border-left: 4px solid #dc3545;
+            border-left: 4px solid #810a16;
         }
         
         .alert-warning {
@@ -189,6 +189,54 @@
         .loading .loader {
             display: inline-block;
         }
+        .login-container {
+        background-color: white;
+        border-radius: 16px;
+        padding: 32px;
+        width: 100%;
+        max-width: 320px;
+        box-shadow: 
+            0 4px 6px rgba(0, 0, 0, 0.1),
+            0 1px 3px rgba(0, 0, 0, 0.08),
+            0 15px 32px rgba(0, 0, 0, 0.3),
+            0 15px 30px rgba(88, 7, 32, 0.2); /* Shadow dengan sentuhan warna maroon */
+        position: relative;
+        animation: fadeIn 0.5s ease-in-out;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1); /* Border halus untuk efek premium */
+        transform: translateY(0);
+        z-index: 1;
+    }
+    
+    /* Efek hover yang halus */
+    .login-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 
+            0 7px 14px rgba(0, 0, 0, 0.1),
+            0 3px 6px rgba(0, 0, 0, 0.08),
+            0 20px 40px rgba(0, 0, 0, 0.4),
+            0 20px 38px rgba(88, 7, 32, 0.25);
+    }
+    
+    /* Efek sebelum untuk kesan lebih dalam */
+    .login-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 16px;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(88,7,32,0.1) 100%);
+        -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box, 
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: -1;
+    }
     </style>
 </head>
 <body>
@@ -210,7 +258,13 @@
         </div>
         
         <div class="logo">
-            <div class="stars">★ ★ ★ ★ ★</div>
+            <div class="stars">
+                <span class="text-yellow-500">★</span>
+                <span class="text-yellow-500">★</span>
+                <span class="text-yellow-500">★</span>
+                <span class="text-yellow-500">★</span>
+                <span class="text-yellow-500">★</span>
+              </div>
             <div class="logo-text">GENPRO</div>
         </div>
         
