@@ -10,44 +10,97 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            background-color: #f3f4f6; /* Warna background default Tailwind */
         }
-        .content {
-            margin-left: 120px;
+        
+        /* Layout Utama */
+        .main-layout {
+            display: flex;
+            min-height: 100vh;
         }
+        
+        /* Area Konten */
+        .content-area {
+            flex-grow: 1;
+            margin-left: 220px; /* Sesuai lebar sidebar */
+            transition: margin-left 0.3s;
+            position: relative;
+        }
+        
+        /* Ketika Sidebar Collapsed */
+        .sidebar-collapsed .content-area {
+            margin-left: 60px;
+        }
+        
+        /* Navbar Positioning */
+        .navbar-container {
+            position: relative; /* Diubah dari fixed ke relative */
+            height: 25vh;
+            z-index: 15;
+        }
+        
+        /* Konten Utama yang Naik ke Atas */
+        .main-content {
+            margin-top: -80px; /* Nilai negatif untuk naik ke atas */
+            padding: 1rem;
+            position: relative;
+            z-index: 20; /* Pastikan di atas navbar */
+            /* background-color: #f3f4f6; */
+            /* border-top-left-radius: 20px;
+            border-top-right-radius: 20px; */
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Card Styling */
         .card {
             border-radius: 0.5rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
+            padding: 1.5rem;
             margin-bottom: 1rem;
+            background-color: white;
         }
+        
         .yellow-card {
-            background-color: #FFBF00; /* Warna emas */
+            background-color: #FFBF00;
             color: white;
         }
+        
         .pink-card {
-            background-color: #E3256B; /* Warna pink */
+            background-color: #E3256B;
             color: white;
         }
     </style>
 </head>
 <body class="bg-gray-100">
-    <!-- Sidebar Component -->
-    @include('layouts.sidebar')
+    <div class="main-layout" id="mainLayout">
+        <!-- Sidebar Component -->
+        @include('layouts.sidebar')
 
-    <!-- Content Area -->
-    <div class="content">
-        <!-- Navbar Component -->
-        @include('layouts.navbar')
-
-        <!-- Main Content -->
-        <div class="p-6">
-            @yield('content')
+        <div class="content-area">
+            <!-- Navbar -->
+            <div class="navbar-container">
+                @include('layouts.navbar')
+            </div>
+            
+            <!-- Main Content - Naik Menimpa Navbar -->
+            <div class="main-content">
+                @yield('content')
+            </div>
         </div>
     </div>
 
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+        
+        // Sidebar toggle functionality
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const mainLayout = document.getElementById('mainLayout');
+        
+        sidebarToggle.addEventListener('click', () => {
+            mainLayout.classList.toggle('sidebar-collapsed');
+        });
     </script>
 </body>
 </html>
