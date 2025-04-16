@@ -16,13 +16,13 @@ Route::get('/dashboard', function () {
 });
 
 route::get('/daftar-compeny', function () {
-    return view('daftar-compeny');
+    return view('dashboard.daftar-compeny');
 });
 Route::get('/Summary-Financial', function () {
-    return view('Summary-Financial');
+    return view('dashboard.Summary-Financial');
 });
 Route::get('/finance-report', function () {
-    return view('finance-report');
+    return view('dashboard.finance-report');
 });
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
