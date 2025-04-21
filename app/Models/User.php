@@ -48,16 +48,39 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => 'string',
         ];
     }
 
-    public function user ()
-    {
-        return $this->hasOne(MenteeProfile::class);
-    }
+    // public function mentee ()
+    // {
+    //     return $this->hasOne(MenteeProfile::class);
+    // }
 
     public function company()
     {
-        return $this->hasOne(Company::class);
+        return $this->hasOne(Company::class, 'user_id', 'user_id');
+    }
+
+    public function menteeProfile()
+    {
+    return $this->hasOne(MenteeProfile::class, 'mentee_id', 'user_id');
+    }
+
+    // Relasi Kelas sebagai Mentor (seorang mentor bisa mengelola banyak kelas)
+    public function kelas()
+    {
+        return $this->hasMany(Kelas::class, 'mentor_id', 'user_id');
+    }
+
+    // Relasi Kelas sebagai Secretary (seorang sekretaris bisa mengelola banyak kelas)
+    public function secretaryClasses()
+    {
+        return $this->hasMany(Kelas::class, 'secretary_id', 'user_id');
+    }
+
+    public function mentor()
+    {
+        return $this->hasOne(Mentor::class, 'mentor_id', 'user_id');
     }
 }

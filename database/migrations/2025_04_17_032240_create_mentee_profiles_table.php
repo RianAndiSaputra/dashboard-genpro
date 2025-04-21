@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mentee_profiles', function (Blueprint $table) {
-            $table->id();
+            $table->id();            
             $table->foreignId('kelas_id')->nullable()->constrained('kelas_id')->on('kelas')->onDelete('set null');
-            $table->foreignId('user_id')->constrained('user_id')->on('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('company_id')->constrained('company_id')->on('companies')->onDelete('cascade');
             $table->string('address');
             $table->string('profile_picture')->nullable();

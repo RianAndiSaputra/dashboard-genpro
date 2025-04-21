@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone');
             $table->string('full_name');
-            $table->enum('role', ['ADMIN', 'MENTOR', 'MENTEE', 'SEKRETARIS', 'KEPALA_SEKLOAH']);
+            $table->enum('role', ['admin', 'mentor', 'mentee', 'company', 'secretary'])
+            ->default('mentee');
             $table->timestamps();
             $table->rememberToken();
         });

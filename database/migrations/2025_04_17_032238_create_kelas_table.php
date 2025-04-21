@@ -14,20 +14,16 @@ return new class extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->string('class_name');
-            // $table->unsignedBigInteger('mentor_id');
-            // $table->unsignedBigInteger('secretary_id');
+            $table->unsignedBigInteger('mentor_id');
+            $table->unsignedBigInteger('secretary_id');
+            $table->unsignedBigInteger('mentee_id');
             $table->timestamps();
-            
-            // Define foreign keys separately
-            // $table->foreign('mentor_id')
-            //       ->references('user_id')
-            //       ->on('users')
-            //       ->onDelete('cascade');
-                  
-            // $table->foreign('secretary_id')
-            //       ->references('user_id')
-            //       ->on('users')
-            //       ->onDelete('cascade');
+        
+            // Foreign keys yang benar
+            $table->foreign('mentor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('secretary_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('mentee_id')->references('id')->on('users')->onDelete('cascade');
+            $table->json('user_ids')->nullable();
         });
     }
 

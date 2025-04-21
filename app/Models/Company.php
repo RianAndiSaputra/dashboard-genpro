@@ -9,7 +9,7 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'company_id';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'user_id',
         'nama_perusahaan',
@@ -33,6 +33,6 @@ class Company extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 }

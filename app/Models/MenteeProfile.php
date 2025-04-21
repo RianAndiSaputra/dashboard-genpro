@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MenteeProfile extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'mentee_id';
+    // protected $primaryKey = 'id';
     protected $fillable = [
-        'kelas_id',
         'user_id',
+        'kelas_id',
         'company_id',
         'address',
         'profile_picture',
@@ -28,17 +29,17 @@ class MenteeProfile extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
-    } 
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
 
-    public function companies()
+    public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, 'company_id', 'id');
     }
 
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(Kelas::class, 'kelas_id', 'id');
     }
 
     public function attendance()
