@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('session_id');
-            $table->foreignId('mentee_id')->constrained('mentee_id')->on('mentee_profiles')->onDelete('cascade');
+            // $table->foreignId('session_id');
+            $table->foreignId('mentee_id')->constrained('mentee_profiles')->onDelete('cascade');
             $table->timestamp('check_in_time');
             $table->string('selfie_url')->nullable();
             $table->timestamps();

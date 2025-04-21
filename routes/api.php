@@ -79,3 +79,9 @@ Route::controller(BusinessFinancialController::class)->prefix('financial')->grou
     Route::put('/{id}', 'update');
     Route::delete('/{id}', 'destroy');
 });
+
+Route::controller(AttendanceController::class)->group(function(){
+    Route::get('/absen', 'index');
+    Route::get('/detail/absen/{id}', 'show');
+    Route::post('/create/absen', 'store');
+});
