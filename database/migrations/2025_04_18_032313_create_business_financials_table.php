@@ -19,7 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('nett_profit__id');
             $table->unsignedBigInteger('gross_profit_margin__id');
             $table->unsignedBigInteger('nett_profit_margin__id');
-            $table->unsignedBigInteger('capaian_target_neet_profit__id');
+            // $table->unsignedBigInteger('capaian_target_neet_profit__id');
+            $table->string('capaian_target_nett_profit');
             $table->unsignedBigInteger('company_id');
             $table->integer('realisasi');
             $table->timestamps();
@@ -55,10 +56,10 @@ return new class extends Migration
                   ->on('nett_profit_margin_')
                   ->onDelete('cascade');
                   
-            $table->foreign('capaian_target_neet_profit__id')
-                  ->references('id')
-                  ->on('capaian_target_nett_profit_')
-                  ->onDelete('cascade');
+            // $table->foreign('capaian_target_neet_profit__id')
+            //       ->references('id')
+            //       ->on('capaian_target_nett_profit_')
+            //       ->onDelete('cascade');
                   
             $table->foreign('company_id')
                   ->references('id')

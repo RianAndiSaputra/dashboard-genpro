@@ -1,19 +1,20 @@
 <?php
 
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\KelasController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MenteeProfileController;
-use App\Http\Controllers\MentorController;
-use App\Http\Controllers\MutabaahReportController;
-use App\Http\Controllers\MutabahReportController;
-use App\Http\Controllers\UserController;
-use App\Models\Company;
-use App\Models\MenteeProfile;
-use App\Models\Mentor;
-use App\Models\MutabaahReport;
 use App\Models\User;
+use App\Models\Mentor;
+use App\Models\Company;
+use Illuminate\Http\Request;
+use App\Models\MenteeProfile;
+use App\Models\MutabaahReport;
+// use App\Http\Controllers\MutabaahReportController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MentorController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\MenteeProfileController;
+use App\Http\Controllers\MutabahReportController;
+use App\Http\Controllers\BusinessFinancialController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -69,4 +70,12 @@ Route::controller(MentorController::class)->group(function (){
     Route::get('/detail/mentor', 'show');
     Route::post('/create/mentor', 'store');
     // Route::put('/mentor', 'index');
+});
+
+Route::controller(BusinessFinancialController::class)->prefix('financial')->group(function (){
+    Route::get('/', 'index');
+    Route::get('/{id}', 'show');
+    Route::post('/create','store');
+    Route::put('/{id}', 'update');
+    Route::delete('/{id}', 'destroy');
 });

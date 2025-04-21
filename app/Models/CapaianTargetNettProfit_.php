@@ -11,5 +11,5 @@ class CapaianTargetNettProfit_ extends Model
     
     protected $primaryKey = 'capaian_target_neet_profit__id';
     protected $table = 'capaian_target_nett_profit_';
-    protected $fillable = ['capaian_'];
+    protected $fillable = ['capaian_target_nett_profit'];
 }

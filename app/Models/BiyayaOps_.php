@@ -9,7 +9,7 @@ class BiyayaOps_ extends Model
 {
     use HasFactory;
     
-    protected $primaryKey = 'biyaya_ops__id';
-    protected $table = 'biayaops_';
+    // protected $primaryKey = 'biyaya_ops__id';
+    protected $table = 'biyaya_ops_';
     protected $fillable = ['targert_', 'realisasi_'];
 }

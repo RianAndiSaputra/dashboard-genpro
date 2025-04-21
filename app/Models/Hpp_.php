@@ -18,5 +18,7 @@ class Hpp_ extends Model
         'GROSS_PROFIT_MARGINgross_profit_margin_id',
         'nett_profit_margin_id',
         'company_id',
+        'targert_',
+        'realisasi_'
     ];
 }

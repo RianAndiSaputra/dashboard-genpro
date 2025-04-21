@@ -9,7 +9,7 @@ class GrossProfit_ extends Model
 {
     use HasFactory;
     
-    protected $primaryKey = 'gross_profit__id';
+    // protected $primaryKey = 'gross_profit__id';
     protected $table = 'gross_profit_';
     protected $fillable = ['targert_', 'realisasi_'];
 }
