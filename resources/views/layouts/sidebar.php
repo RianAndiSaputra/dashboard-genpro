@@ -22,6 +22,13 @@
     <span class="text-left">Dashboard</span>
   </a>
   
+  <a href="/formulir" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('formulir')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+        <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 14c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+        </svg>
+        <span class="text-left">Mente </span>
+      </a>
+
   <a href="/daftar-compeny" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('daftar-compeny')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
     <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -43,6 +50,21 @@
     </svg>
     <span class="text-left">Financial Report</span>
   </a>
+
+  <a href="/mutabaah" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('mutabaah')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+  <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 4h16v2H4V4zm0 5h16v2H4V9zm0 5h10v2H4v-2z" />
+  </svg>
+  <span class="text-left">Laporan Mutabaah</span>
+</a>
+
+<a href="/daftar-kelas" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('daftar-kelas')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+  <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17 20h5v-2a4 4 0 00-5-3.87M9 20H4v-2a4 4 0 015-3.87M12 12a4 4 0 100-8 4 4 0 000 8z" />
+  </svg>
+  <span class="text-left">Daftar Kelas</span>
+</a>
+
 </div>
   </div>
   

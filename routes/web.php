@@ -30,6 +30,14 @@ Route::get('/absen', function () {
 Route::get('/formulir', function () {
     return view('mente.formulir');
 });
+
+Route::get('/mutabaah', function () {
+    return view('dashboard.mutabaah');
+});
+
+Route::get('/daftar-kelas', function () {
+    return view('dashboard.daftar-kelas');
+});
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
 //         'canLogin' => Route::has('login'),
