@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\KelasController;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use App\Http\Controllers\MentorController;
 use App\Http\Controllers\MutabaahReportController;
 use App\Http\Controllers\MutabahReportController;
 use App\Http\Controllers\UserController;
+use App\Models\Attendance;
 use App\Models\Company;
 use App\Models\MenteeProfile;
 use App\Models\Mentor;
@@ -69,4 +71,10 @@ Route::controller(MentorController::class)->group(function (){
     Route::get('/detail/mentor', 'show');
     Route::post('/create/mentor', 'store');
     // Route::put('/mentor', 'index');
+});
+
+Route::controller(AttendanceController::class)->group(function(){
+    Route::get('/absen', 'index');
+    Route::get('/detail/absen/{id}', 'show');
+    Route::post('/create/absen', 'store');
 });
