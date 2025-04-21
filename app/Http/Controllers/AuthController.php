@@ -26,6 +26,18 @@ class AuthController extends Controller
             'phone' => 'required|string|max:20',
             'full_name' => 'required|string|max:255',
             'role' => 'sometimes|string|in:admin,mentor,mentee,company,secretary,kepalaSekolah',
+
+            //untuk mentee Profile
+            'address' => 'required|string|max:255',
+            'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
+            'bidang_usaha' => 'required|string|max:255',
+            'badan_hukum' => 'required|string|max:255',
+            'tahun_berdiri' => 'required|string',
+            'jumlah_karyawan' => 'required|integer',
+            'jumlah_omset' => 'required|integer',
+            'jabatan' => 'required|string|max:255',
+            'komitmen' => 'required|in:iya,tidak',
+            'gambar_laporan' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -43,6 +55,19 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'full_name' => $request->full_name,
             'role' => $request->role ?? 'mentee', // Default to mentee if not specified
+        ]);
+
+        $mentee = MenteeProfile::create([
+            'address' => $request->address,
+            'profile_picture' => $request->profile_picture,
+            'bidang_usaha' => $request->bidang_usaha,
+            'badan_hukum' => $request->badan_hukum,
+            'tahun_berdiri' => $request->tahun_berdiri,
+            'jumlah_karyawan' => $request->jumlah_karyawan,
+            'jumlah_omset' => $request->jumlah_omset,
+            'jabatan' => $request->jabatan,
+            'komitmen' => $request->komitmen,
+            'gambar_laporan' => $request->gambar_laporan,
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;

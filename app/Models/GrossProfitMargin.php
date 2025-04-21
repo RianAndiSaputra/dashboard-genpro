@@ -9,8 +9,8 @@ class GrossProfitMargin extends Model
 {
     use HasFactory;
     
-    protected $primaryKey = 'gross_profit_margin_id';
-    protected $table = 'gross_profit_margin';
+    // protected $primaryKey = 'gross_profit_margin_id';
+    protected $table = 'gross_profit_margins';
     protected $fillable = ['targert', 'realisasi'];
 
     public function businessProgress()

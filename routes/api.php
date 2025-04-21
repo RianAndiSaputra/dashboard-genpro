@@ -17,6 +17,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\MenteeProfileController;
 use App\Http\Controllers\MutabahReportController;
 use App\Http\Controllers\BusinessFinancialController;
+use App\Http\Controllers\BusinessProgressController;
 
 
 
@@ -84,7 +85,13 @@ Route::middleware(['auth:sanctum'])->group(function(){
             Route::post('/create/mutabaah', 'store');
             Route::delete('/delete/mutabaah', 'destroy');
         });
-    
+
+        Route::controller(BusinessProgressController::class)->prefix('progress')->group(function(){
+            Route::get('/', 'index');
+            Route::post('/create', 'store');
+            Route::get('/{id}', 'show');
+        });
+        
         Route::controller(BusinessFinancialController::class)->prefix('financial')->group(function (){
             Route::get('/', 'index');
             Route::get('/{id}', 'show');
@@ -92,17 +99,15 @@ Route::middleware(['auth:sanctum'])->group(function(){
             Route::put('/{id}', 'update');
             Route::delete('/{id}', 'destroy');
         });
-    
+
         Route::controller(AttendanceController::class)->group(function(){
             Route::get('/absen', 'index');
             Route::get('/detail/absen/{id}', 'show');
             Route::post('/create/absen', 'store');
         });
     
-        Route::controller(BusinessProgressContoller::class)->group(function(){
-        
-        });
 
     });
 
 });
+

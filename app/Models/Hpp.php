@@ -9,8 +9,8 @@ class Hpp extends Model
 {
     use HasFactory;
     
-    protected $primaryKey = 'hpp_id';
-    protected $table = 'hpp';
+    // protected $primaryKey = 'hpp_id';
+    protected $table = 'hpps';
     protected $fillable = ['targert', 'realisasi'];
 
     public function businessProgress()

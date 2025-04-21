@@ -9,7 +9,7 @@ class Omzet extends Model
 {
     use HasFactory;
     
-    protected $primaryKey = 'omzet_id';
+    // protected $primaryKey = 'omzet_id';
     protected $fillable = ['targert', 'realisasi'];
 
     public function businessProgress()

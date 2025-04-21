@@ -9,8 +9,8 @@ class NettProfitMargin extends Model
 {
     use HasFactory;
     
-    protected $primaryKey = 'nett_profit_margin_id';
-    protected $table = 'nett_profit_margin';
+    // protected $primaryKey = 'nett_profit_margin_id';
+    protected $table = 'nett_profit_margins';
     protected $fillable = ['targert', 'realisasi'];
 
     public function businessProgress()
