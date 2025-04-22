@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4">
-    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-        <!-- Header -->
-        <div class="bg-yellow-500 text-center py-3 rounded-lg shadow-md mb-6">
+<div class="relative bg-white rounded-lg shadow-lg p-6 mb-6">
+    <!-- Header - Shorter width and overlapping with shadow -->
+    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-3/4">
+        <div class="bg-yellow-500 text-center py-3 rounded-lg shadow-md">
             <h2 class="text-xl font-bold text-gray-800">LAPORAN MUTABAAH</h2>
         </div>
+    </div>
 
         <!-- Form Fields - Horizontal layout -->
+        <br><br><br>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
             <div class="flex items-center">
                 <label class="block w-24">Tahun</label>

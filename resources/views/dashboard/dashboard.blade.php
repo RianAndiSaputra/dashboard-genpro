@@ -71,4 +71,88 @@
             <p class="text-xs text-gray-500">View details</p>
         </div>
     </div>
+    <script>
+        // Fungsi untuk menambahkan token ke semua request
+        function addAuthTokenToRequests() {
+            const originalFetch = window.fetch;
+            
+            window.fetch = async function(url, options = {}) {
+                const token = localStorage.getItem('auth_token');
+                
+                if (token) {
+                    options.headers = options.headers || {};
+                    options.headers.Authorization = `Bearer ${token}`;
+                }
+                
+                const response = await originalFetch(url, options);
+                
+                // Jika token tidak valid atau expired
+                if (response.status === 401) {
+                    localStorage.removeItem('auth_token');
+                    window.location.href = '/';
+                }
+                
+                return response;
+            };
+        }
+        
+        // Cek token saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('auth_token');
+            
+            if (!token) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Sesi Berakhir',
+                    text: 'Silakan login kembali',
+                    confirmButtonColor: '#580720',
+                }).then(() => {
+                    window.location.href = '/';
+                });
+                return;
+            }
+            
+            // Tambahkan token ke semua request
+            addAuthTokenToRequests();
+            
+            // Logout handler
+            document.getElementById('logout-button')?.addEventListener('click', async function() {
+                try {
+                    const response = await fetch('/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        localStorage.removeItem('auth_token');
+                        document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+                        
+                        await Swal.fire({
+                            icon: 'success',
+                            title: 'Logout Berhasil',
+                            text: 'Mengarahkan ke halaman login...',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        
+                        window.location.href = '/';
+                    } else {
+                        throw new Error('Logout gagal');
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Logout Gagal',
+                        text: error.message,
+                        confirmButtonColor: '#580720',
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

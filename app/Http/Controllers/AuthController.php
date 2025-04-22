@@ -17,44 +17,44 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|string|unique:users,username|max:255',
-            'email' => 'required|string|email|unique:users,email|max:255',
-            'password' => 'required|string|min:8|confirmed',
-            'phone' => 'required|string|max:20',
-            'full_name' => 'required|string|max:255',
-            'role' => 'sometimes|string|in:admin,mentor,mentee,company,secretary,kepalaSekolah',
-        ]);
+    // public function register(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'username' => 'required|string|unique:users,username|max:255',
+    //         'email' => 'required|string|email|unique:users,email|max:255',
+    //         'password' => 'required|string|min:8|confirmed',
+    //         'phone' => 'required|string|max:20',
+    //         'full_name' => 'required|string|max:255',
+    //         'role' => 'sometimes|string|in:admin,mentor,mentee,company,secretary,kepalaSekolah',
+    //     ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validation errors',
-                'errors' => $validator->errors()
-            ], 422);
-        }
+    //     if ($validator->fails()) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Validation errors',
+    //             'errors' => $validator->errors()
+    //         ], 422);
+    //     }
 
-        $user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'phone' => $request->phone,
-            'full_name' => $request->full_name,
-            'role' => $request->role ?? 'mentee', // Default to mentee if not specified
-        ]);
+    //     $user = User::create([
+    //         'username' => $request->username,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //         'phone' => $request->phone,
+    //         'full_name' => $request->full_name,
+    //         'role' => $request->role ?? 'mentee', // Default to mentee if not specified
+    //     ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+    //     $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'status' => true,
-            'message' => 'User registered successfully',
-            'user' => $user,
-            'access_token' => $token,
-            'token_type' => 'Bearer'
-        ], 201);
-    }
+    //     return response()->json([
+    //         'status' => true,
+    //         'message' => 'User registered successfully',
+    //         'user' => $user,
+    //         'access_token' => $token,
+    //         'token_type' => 'Bearer'
+    //     ], 201);
+    // }
 
     /**
      * Handle user login request
@@ -68,58 +68,72 @@ class AuthController extends Controller
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
-
+        
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => 'Validation errors',
+                'message' => 'Validasi gagal',
                 'errors' => $validator->errors()
             ], 422);
         }
-
-        // Check if login with username or email
+        
         $loginField = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $credentials = [
+            $loginField => $request->username,
+            'password' => $request->password
+        ];
         
-        $user = User::where($loginField, $request->username)->first();
-        
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'username' => ['The provided credentials are incorrect.'],
-            ]);
+        if (!Auth::attempt($credentials)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Username/Email atau password salah',
+            ], 401);
         }
-
-        // Revoke previous tokens (optional)
-        // $user->tokens()->delete();
         
+        $user = Auth::user();
         $token = $user->createToken('auth_token')->plainTextToken;
-
+        
         return response()->json([
             'status' => true,
-            'message' => 'Login successful',
-            'user' => $user,
+            'message' => 'Login berhasil',
+            'redirect' => '/dashboard',
             'access_token' => $token,
             'token_type' => 'Bearer',
             'role' => $user->role
         ]);
     }
-
     /**
      * Handle user logout request
      * 
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout(Request $request)
-    {
-        // Revoke the token that was used to authenticate the current request
-        $request->user()->currentAccessToken()->delete();
+ // Controller
+ public function logout(Request $request)
+{
+    try {
+        // Hapus token Sanctum
+        if ($request->user()) {
+            $request->user()->tokens()->delete();
+        }
+        
+        // Logout dari session web
+        auth()->guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         
         return response()->json([
             'status' => true,
-            'message' => 'Successfully logged out'
+            'message' => 'Logout berhasil'
         ]);
+        
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Logout gagal: ' . $e->getMessage()
+        ], 500);
     }
-    
+}
     /**
      * Get authenticated user details
      * 

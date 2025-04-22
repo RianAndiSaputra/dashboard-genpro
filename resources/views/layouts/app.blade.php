@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GENPRO - Dashboard</title>
@@ -101,6 +102,38 @@
         sidebarToggle.addEventListener('click', () => {
             mainLayout.classList.toggle('sidebar-collapsed');
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    // Tambahkan token ke setiap request AJAX
+    let token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
+    
+    if (token) {
+        // Untuk fetch API
+        let originalFetch = window.fetch;
+        window.fetch = function(url, options = {}) {
+            if (!options.headers) {
+                options.headers = {};
+            }
+            
+            // Tambahkan Authorization header jika belum ada
+            if (!options.headers.Authorization) {
+                options.headers.Authorization = `Bearer ${token}`;
+            }
+            
+            return originalFetch(url, options);
+        };
+        
+        // Untuk XMLHttpRequest
+        let originalOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function() {
+            let method = arguments[0];
+            let url = arguments[1];
+            originalOpen.apply(this, arguments);
+            this.setRequestHeader('Authorization', `Bearer ${token}`);
+        };
+    }
+});
+
     </script>
 </body>
 </html>

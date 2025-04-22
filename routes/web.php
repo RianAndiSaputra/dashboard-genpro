@@ -4,16 +4,44 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\AuthController;
 
-
-
+// Auth Routes
 Route::get('/', function () {
+    // Jika sudah login, redirect ke dashboard
+    if (Auth::guard('sanctum')->check()) {
+        return redirect()->route('dashboard');
+    }
     return view('auth.login');
+})->name('login');
+
+Route::post('/login', [AuthController::class, 'login']);
+
+// Dashboard Route (protected)
+Route::middleware(['auth:sanctum', 'role'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard.dashboard');
+    })->name('dashboard');
+    
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.dashboard');
+// Fallback route untuk invalid URLs
+Route::fallback(function () {
+    return redirect()->route('login');
 });
+  
+
+    // Tambahkan route protected lainnya di sini
+
+
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard.dashboard');
+// });
 
 route::get('/daftar-compeny', function () {
     return view('dashboard.daftar-compeny');

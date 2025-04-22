@@ -19,7 +19,12 @@ return Application::configure(basePath: dirname(__DIR__))
         //     \App\Http\Middleware\HandleInertiaRequests::class,
         //     \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         // ]);
-
+        $middleware->statefulApi();
+        
+        // Atau secara manual:
+        $middleware->appendToGroup('api', [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        ]);
         $middleware->alias([  
             'role' => RoleCheck::class,  
         ]);  
