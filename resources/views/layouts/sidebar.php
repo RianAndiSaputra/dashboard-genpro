@@ -104,4 +104,92 @@
       <span class="signout-text">Sign Out</span>
     </button>
   </div>
+  <script>
+    // Get the sidebar sign out button
+const sidebarSignoutButton = document.querySelector('.sidebar-signout');
+
+// Add event listener to the sidebar sign out button
+sidebarSignoutButton.addEventListener('click', async function(e) {
+    e.preventDefault();
+    
+    // Konfirmasi logout
+    const confirmResult = await Swal.fire({
+        title: 'Konfirmasi Logout',
+        text: 'Apakah Anda yakin ingin logout?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#580720',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Logout!',
+        cancelButtonText: 'Batal',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    });
+    
+    if (!confirmResult.isConfirmed) return;
+    
+    // Tampilkan loading
+    Swal.fire({
+        title: 'Memproses logout...',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+    
+    try {
+        // Dapatkan token dari localStorage
+        const authToken = localStorage.getItem('auth_token');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+        
+        // Lakukan request logout
+        const response = await fetch('/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            },
+            credentials: 'include'
+        });
+        
+        // Jika response tidak OK, lempar error
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Logout gagal');
+        }
+        
+        // Hapus token dari localStorage
+        localStorage.removeItem('auth_token');
+        
+        // Tampilkan notifikasi sukses
+        await Swal.fire({
+            title: 'Logout Berhasil!',
+            text: 'Anda akan diarahkan ke halaman login',
+            icon: 'success',
+            confirmButtonColor: '#580720',
+            timer: 1500,
+            timerProgressBar: true,
+            willClose: () => {
+                window.location.href = '/';
+            }
+        });
+        
+    } catch (error) {
+        // Tutup loading dialog
+        Swal.close();
+        
+        // Tampilkan error hanya jika halaman belum di-redirect
+        if (!window.location.href.includes('/login')) {
+            await Swal.fire({
+                title: 'Error!',
+                text: error.message,
+                icon: 'error',
+                confirmButtonColor: '#580720'
+            });
+        }
+    }
+});
+  </script>
 </div>
