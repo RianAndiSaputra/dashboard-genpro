@@ -8,7 +8,7 @@
       <span class="text-yellow-500">★</span>
       <span class="text-yellow-500">★</span>
     </div>
-    <h1 class="text-xl font-extrabold text-[#580720] tracking-tight">GENPRO</h1>
+    <h1 class="text-xl font-extrabold text-[#580720] tracking-tight sidebar-logo">GENPRO</h1>
     <div class="border-b-2 border-black mt-3 mb-4 mx-4"></div>
     <div class="flex flex-col space-y-1 px-2">
   <!-- Menu Items -->
@@ -65,19 +65,43 @@
   <span class="text-left">Daftar Kelas</span>
 </a>
 
+<!-- bagian dashboard mentee -->
+ <!-- Sidebar: Kelas -->
+<a href="/kelas-mente" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('kelas-mente')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+  <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+    <path d="M4 6h16M4 10h16M4 14h10M4 18h10" />
+  </svg>
+  <span class="text-left">Kelas</span>
+</a>
+
+<!-- Sidebar: Mutabaah -->
+<a href="/mutabaah-mente" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('mutabaah-mente')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+  <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+    <path d="M5 13l4 4L19 7" />
+  </svg>
+  <span class="text-left">Mutabaah</span>
+</a>
+<!-- Sidebar: Profile Saya -->
+<a href="/profile-mente" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('profile-mente')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+  <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+    <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+  </svg>
+  <span class="text-left">Profile Saya</span>
+</a>
+<!-- end dashboard mente -->
 </div>
   </div>
   
   <!-- Spacer to push sign out to bottom -->
   <div class="flex-grow"></div>
   
-  <!-- Sign Out Button -->
-  <div class="absolute bottom-4 w-full px-4">
-    <button class="w-full bg-gradient-to-r from-[#580720] to-[#800020] text-white p-3 rounded-lg flex items-center justify-center hover:opacity-90 transition-all duration-200 shadow-md hover:shadow-lg font-semibold">
-      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-      </svg>
-      Sign Out
-    </button>
-  </div>
+ <!-- Sign Out Button -->
+ <div class="absolute bottom-4 w-full px-4">
+  <button class="w-full bg-gradient-to-r from-[#580720] to-[#800020] text-white p-3 rounded-lg flex items-center justify-center hover:opacity-90 transition-all duration-200 shadow-md hover:shadow-lg font-semibold sidebar-signout">
+    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+    </svg>
+    <span class="signout-text">Sign Out</span>
+  </button>
+</div>
 </div>

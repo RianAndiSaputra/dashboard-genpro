@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::post('/login', [AuthController::class, 'login']);
 
 // Dashboard Route (protected)
-Route::middleware(['auth:sanctum', 'role'])->group(function () {
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard.dashboard');
     })->name('dashboard');
@@ -65,6 +65,19 @@ Route::get('/mutabaah', function () {
 
 Route::get('/daftar-kelas', function () {
     return view('dashboard.daftar-kelas');
+});
+
+
+Route::get('/profile-mente', function () {
+    return view('mente.profile');
+});
+
+Route::get('/kelas-mente', function () {
+    return view('mente.kelas');
+});
+
+Route::get('/mutabaah-mente', function () {
+    return view('mente.mutabaah');
 });
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
