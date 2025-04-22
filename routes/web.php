@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
 
-// Auth Routes
+// Auth Routes (Public)
 Route::get('/', function () {
-    // Jika sudah login, redirect ke dashboard
+    // Redirect to dashboard if already logged in
     if (Auth::guard('sanctum')->check()) {
         return redirect()->route('dashboard');
     }
@@ -16,68 +16,65 @@ Route::get('/', function () {
 })->name('login');
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:sanctum');
 
-// Dashboard Route (protected)
-Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+// Dashboard Routes - Protected by Authentication
+Route::middleware(['auth:sanctum'])->group(function () {
+    // Common route for all authenticated users
     Route::get('/dashboard', function () {
         return view('dashboard.dashboard');
     })->name('dashboard');
     
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    // Admin, Mentor, Secretary, KepalaSekolah Routes
+    Route::middleware(['role:admin,mentor,secretary,kepalaSekolah'])->group(function () {
+        Route::get('/formulir', function () {
+            return view('mente.formulir');
+        })->name('formulir');
+        
+        Route::get('/daftar-compeny', function () {
+            return view('dashboard.daftar-compeny');
+        })->name('daftar-compeny');
+        
+        Route::get('/Summary-Financial', function () {
+            return view('dashboard.Summary-Financial');
+        })->name('summary-financial');
+        
+        Route::get('/finance-report', function () {
+            return view('dashboard.finance-report');
+        })->name('finance-report');
+        
+        Route::get('/mutabaah', function () {
+            return view('dashboard.mutabaah');
+        })->name('mutabaah');
+        
+        Route::get('/daftar-kelas', function () {
+            return view('dashboard.daftar-kelas');
+        })->name('daftar-kelas');
+    });
+    
+    // Routes for Mentee role
+    Route::middleware(['role:mentee'])->group(function () {
+        Route::get('/kelas-mente', function () {
+            return view('mente.kelas');
+        })->name('kelas-mente');
+        
+        Route::get('/mutabaah-mente', function () {
+            return view('mente.mutabaah');
+        })->name('mutabaah-mente');
+        
+        Route::get('/profile-mente', function () {
+            return view('mente.profile');
+        })->name('profile-mente');
+        
+        Route::get('/absen', function () {
+            return view('mente.absen');
+        })->name('absen');
+    });
 });
 
-// Fallback route untuk invalid URLs
+// Fallback route for invalid URLs
 Route::fallback(function () {
     return redirect()->route('login');
-});
-  
-
-    // Tambahkan route protected lainnya di sini
-
-
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard.dashboard');
-// });
-
-route::get('/daftar-compeny', function () {
-    return view('dashboard.daftar-compeny');
-});
-Route::get('/Summary-Financial', function () {
-    return view('dashboard.Summary-Financial');
-});
-Route::get('/finance-report', function () {
-    return view('dashboard.finance-report');
-});
-Route::get('/absen', function () {
-    return view('mente.absen');
-});
-Route::get('/formulir', function () {
-    return view('mente.formulir');
-});
-
-Route::get('/mutabaah', function () {
-    return view('dashboard.mutabaah');
-});
-
-Route::get('/daftar-kelas', function () {
-    return view('dashboard.daftar-kelas');
-});
-
-
-Route::get('/profile-mente', function () {
-    return view('mente.profile');
-});
-
-Route::get('/kelas-mente', function () {
-    return view('mente.kelas');
-});
-
-Route::get('/mutabaah-mente', function () {
-    return view('mente.mutabaah');
 });
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
