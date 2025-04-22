@@ -17,16 +17,28 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    // public function register(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'username' => 'required|string|unique:users,username|max:255',
-    //         'email' => 'required|string|email|unique:users,email|max:255',
-    //         'password' => 'required|string|min:8|confirmed',
-    //         'phone' => 'required|string|max:20',
-    //         'full_name' => 'required|string|max:255',
-    //         'role' => 'sometimes|string|in:admin,mentor,mentee,company,secretary,kepalaSekolah',
-    //     ]);
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|unique:users,username|max:255',
+            'email' => 'required|string|email|unique:users,email|max:255',
+            'password' => 'required|string|min:8|confirmed',
+            'phone' => 'required|string|max:20',
+            'full_name' => 'required|string|max:255',
+            'role' => 'sometimes|string|in:admin,mentor,mentee,company,secretary,kepalaSekolah',
+
+            //untuk mentee Profile
+            'address' => 'required|string|max:255',
+            'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
+            'bidang_usaha' => 'required|string|max:255',
+            'badan_hukum' => 'required|string|max:255',
+            'tahun_berdiri' => 'required|string',
+            'jumlah_karyawan' => 'required|integer',
+            'jumlah_omset' => 'required|integer',
+            'jabatan' => 'required|string|max:255',
+            'komitmen' => 'required|in:iya,tidak',
+            'gambar_laporan' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
+        ]);
 
     //     if ($validator->fails()) {
     //         return response()->json([
@@ -36,14 +48,27 @@ class AuthController extends Controller
     //         ], 422);
     //     }
 
-    //     $user = User::create([
-    //         'username' => $request->username,
-    //         'email' => $request->email,
-    //         'password' => Hash::make($request->password),
-    //         'phone' => $request->phone,
-    //         'full_name' => $request->full_name,
-    //         'role' => $request->role ?? 'mentee', // Default to mentee if not specified
-    //     ]);
+        $user = User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+            'full_name' => $request->full_name,
+            'role' => $request->role ?? 'mentee', // Default to mentee if not specified
+        ]);
+
+        $mentee = MenteeProfile::create([
+            'address' => $request->address,
+            'profile_picture' => $request->profile_picture,
+            'bidang_usaha' => $request->bidang_usaha,
+            'badan_hukum' => $request->badan_hukum,
+            'tahun_berdiri' => $request->tahun_berdiri,
+            'jumlah_karyawan' => $request->jumlah_karyawan,
+            'jumlah_omset' => $request->jumlah_omset,
+            'jabatan' => $request->jabatan,
+            'komitmen' => $request->komitmen,
+            'gambar_laporan' => $request->gambar_laporan,
+        ]);
 
     //     $token = $user->createToken('auth_token')->plainTextToken;
 

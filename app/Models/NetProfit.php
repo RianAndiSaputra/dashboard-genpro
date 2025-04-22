@@ -9,8 +9,8 @@ class NetProfit extends Model
 {
     use HasFactory;
     
-    protected $primaryKey = 'net_profit_id';
-    protected $table = 'net_profit';
+    // protected $primaryKey = 'net_profit_id';
+    protected $table = 'net_profits';
     protected $fillable = ['targert', 'realisasi'];
 
     public function businessProgress()

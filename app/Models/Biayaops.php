@@ -9,7 +9,7 @@ class Biayaops extends Model
 {
     use HasFactory;
     
-    protected $primaryKey = 'biayaops_id';
+    // protected $primaryKey = 'biayaops_id';
     protected $table = 'biayaops';
     protected $fillable = ['targert', 'realisasi'];
 

@@ -16,8 +16,11 @@ class BusinessProgress extends Model
         'gross_profit_id',
         'net_profit_id',
         'gross_profit_margin_id',
-        'nett_profit_margin_id',
+        // 'nett_profit_margin_id',
+        'nett_profit_marign_id',
         'company_id',
+        'targert',
+        'realisasi'
     ];
 
     public function omzet()
@@ -46,7 +49,7 @@ class BusinessProgress extends Model
     }
     public function nettProfitMargin()
     {
-        return $this->belongsTo(NettProfitMargin::class);
+        return $this->belongsTo(NettProfitMargin::class, 'nett_profit_marign_id', 'id');
     }
 
     public function company()
