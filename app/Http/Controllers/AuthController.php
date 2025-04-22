@@ -79,7 +79,7 @@ class AuthController extends Controller
     //         'access_token' => $token,
     //         'token_type' => 'Bearer'
     //     ], 201);
-    // }
+    }
 
     /**
      * Handle user login request
