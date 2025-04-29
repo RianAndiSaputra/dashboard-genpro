@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('mentee_profiles', function (Blueprint $table) {
             $table->id();            
             $table->foreignId('kelas_id')->nullable()->constrained('kelas_id')->on('kelas')->onDelete('set null');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('company_id')->constrained('company_id')->on('companies')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('company_id')->nullable()->constrained('company_id')->on('companies')->onDelete('cascade');
+           $table->string('nama_bisnis');
             $table->string('address');
             $table->string('profile_picture')->nullable();
             $table->string('bidang_usaha');
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->string('jabatan');
             $table->enum('komitmen', ['iya', 'tidak']);
             $table->string('gambar_laporan')->nullable();
+            $table->enum('status_kelas', ['aktif', 'Nonaktif'])->default('aktif')->nullable();
             $table->timestamps();
         });
     }

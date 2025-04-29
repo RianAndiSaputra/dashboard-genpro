@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('gross_profit_id');
             $table->unsignedBigInteger('net_profit_id');
             $table->unsignedBigInteger('gross_profit_margin_id');
-            $table->unsignedBigInteger('nett_profit_marign_id');
+            $table->unsignedBigInteger('nett_profit_margin_id');
             $table->unsignedBigInteger('company_id');
             $table->timestamps();
             
@@ -54,7 +54,7 @@ return new class extends Migration
                   ->on('gross_profit_margins')
                   ->onDelete('cascade');
                   
-            $table->foreign('nett_profit_marign_id')
+            $table->foreign('nett_profit_margin_id')
                   ->references('id')
                   ->on('nett_profit_margins')
                   ->onDelete('cascade');

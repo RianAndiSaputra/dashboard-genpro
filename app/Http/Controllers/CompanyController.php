@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use APp\Models\User;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -71,5 +72,17 @@ class CompanyController extends Controller
         $company->delete();
 
         return response()->json(["massage"=>"berhasil di hapus"]);
+    }
+
+    public function searchOwners(Request $request)
+    {
+        $query = $request->input('q');
+        
+        $users = User::where('full_name', 'like', "%{$query}%")
+                    ->orWhere('email', 'like', "%{$query}%")
+                    ->limit(10)
+                    ->get(['user_id', 'full_name as name', 'email']);
+        
+        return response()->json($users);
     }
 }

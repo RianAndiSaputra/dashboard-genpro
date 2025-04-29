@@ -2,73 +2,75 @@
 
 @section('content')
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <!-- Yellow Card -->
+        <!-- Yellow Card - Total Mentee -->
         <div class="bg-white rounded-lg shadow-md p-6 h-24 flex items-center">
             <div class="w-12 h-12 rounded-lg flex items-center justify-center mr-4" style="background-color: #FFBF00;">
-                <i data-lucide="alert-circle" class="w-6 h-6 text-white"></i>
-            </div>
-            <div>
-                <h3 class="text-gray-500 text-sm font-medium">Notifications</h3>
-                <p class="text-xl font-semibold">12 New</p>
-            </div>
-        </div>
-        
-        <!-- Pink Card -->
-        <div class="bg-white rounded-lg shadow-md p-6 h-24 flex items-center">
-            <div class="w-12 h-12 rounded-lg flex items-center justify-center mr-4" style="background-color: #E3256B;">
                 <i data-lucide="users" class="w-6 h-6 text-white"></i>
             </div>
             <div>
-                <h3 class="text-gray-500 text-sm font-medium">Users</h3>
-                <p class="text-xl font-semibold">1,234</p>
+                <h3 class="text-gray-500 text-sm font-medium">Total Mentee</h3>
+                <p class="text-xl font-semibold">{{ $menteeCount }}</p>
+            </div>
+        </div>
+        
+        <!-- Pink Card - New Mentees -->
+        <div class="bg-white rounded-lg shadow-md p-6 h-24 flex items-center">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center mr-4" style="background-color: #E3256B;">
+                <i data-lucide="user-plus" class="w-6 h-6 text-white"></i>
+            </div>
+            <div>
+                <h3 class="text-gray-500 text-sm font-medium">Mentee Baru Hari Ini</h3>
+                <p class="text-xl font-semibold">{{ $newMentees }}</p>
             </div>
         </div>
     </div>
 
     <!-- Bottom Cards -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <!-- Card 1 -->
+        <!-- Card 1 - Top Business -->
         <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
             <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background-color: #E3256B;">
-                <i data-lucide="trending-up" class="w-6 h-6 text-white"></i>
+                <i data-lucide="briefcase" class="w-6 h-6 text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold mb-2">Sales Trend</h3>
-            <p class="text-gray-600 text-sm">15% increase this month</p>
+            <h3 class="text-lg font-semibold mb-2">Bidang Usaha Terpopuler</h3>
+            <p class="text-gray-600 text-sm">{{ $topBusiness ? $topBusiness->bidang_usaha : 'Belum ada data' }}</p>
             <div class="w-full h-0.5 bg-gray-100 mt-4 mb-3"></div>
-            <p class="text-xs text-gray-500">View details</p>
+            <p class="text-xs text-gray-500">{{ $topBusiness ? $topBusiness->total . ' mentee' : '' }}</p>
         </div>
 
-        <!-- Card 2 -->
+        <!-- Card 2 - Class Count -->
         <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
             <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background-color: #FFBF00;">
-                <i data-lucide="dollar-sign" class="w-6 h-6 text-white"></i>
+                <i data-lucide="book-open" class="w-6 h-6 text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold mb-2">Revenue</h3>
-            <p class="text-gray-600 text-sm">$12,345 this month</p>
+            <h3 class="text-lg font-semibold mb-2">Total Kelas</h3>
+            <p class="text-gray-600 text-sm">{{ $classCount }} kelas</p>
             <div class="w-full h-0.5 bg-gray-100 mt-4 mb-3"></div>
-            <p class="text-xs text-gray-500">View details</p>
+            <p class="text-xs text-gray-500">{{ $activeClassCount }} kelas aktif</p>
         </div>
 
         <!-- Card 3 -->
+        <!-- Card 3 - Mutabaah Stats -->
         <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
             <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background-color: #8A2BE2;">
                 <i data-lucide="bar-chart-2" class="w-6 h-6 text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold mb-2">Analytics</h3>
-            <p class="text-gray-600 text-sm">3,456 visits today</p>
+            <h3 class="text-lg font-semibold mb-2">Mutaba'ah</h3>
+            <p class="text-gray-600 text-sm">{{ $mutabaahCount }} entri mutaba'ah</p>
             <div class="w-full h-0.5 bg-gray-100 mt-4 mb-3"></div>
-            <p class="text-xs text-gray-500">View details</p>
+            <p class="text-xs text-gray-500">{{ $uniqueMenteesWithMutabaah }} mentee sudah mengisi</p>
         </div>
 
-        <!-- Card 4 -->
+                <!-- Card 4 -->
+                <!-- Card 4 - Company Stats -->
         <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
             <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background-color: #3498DB;">
-                <i data-lucide="pie-chart" class="w-6 h-6 text-white"></i>
+                <i data-lucide="building-2" class="w-6 h-6 text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold mb-2">Statistics</h3>
-            <p class="text-gray-600 text-sm">78% success rate</p>
+            <h3 class="text-lg font-semibold mb-2">Perusahaan</h3>
+            <p class="text-gray-600 text-sm">{{ $companyCount }} perusahaan terdaftar</p>
             <div class="w-full h-0.5 bg-gray-100 mt-4 mb-3"></div>
-            <p class="text-xs text-gray-500">View details</p>
+            <p class="text-xs text-gray-500">Lihat daftar perusahaan</p>
         </div>
     </div>
     <script>

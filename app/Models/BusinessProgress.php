@@ -17,7 +17,7 @@ class BusinessProgress extends Model
         'net_profit_id',
         'gross_profit_margin_id',
         // 'nett_profit_margin_id',
-        'nett_profit_marign_id',
+        'nett_profit_margin_id',
         'company_id',
         'targert',
         'realisasi'
@@ -49,7 +49,7 @@ class BusinessProgress extends Model
     }
     public function nettProfitMargin()
     {
-        return $this->belongsTo(NettProfitMargin::class, 'nett_profit_marign_id', 'id');
+        return $this->belongsTo(NettProfitMargin::class, 'nett_profit_margin_id', 'id');
     }
 
     public function company()

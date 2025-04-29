@@ -38,27 +38,27 @@
           <span class="text-left">Daftar Company</span>
         </a>
         
-        <a href="/Summary-Financial" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('Summary-Financial')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+        <a href="/Summary-financial-admin" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('Summary-Financial-admin')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
           <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
             <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
           </svg>
           <span class="text-left">Summary Financial</span>
-        </a>
+        </a>      
         
-        <a href="/finance-report" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('finance-report')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+        <!-- <a href="/finance-report" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('finance-report')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
           <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           <span class="text-left">Financial Report</span>
-        </a>
+        </a> -->
 
-        <a href="/mutabaah" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('mutabaah')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+        <a href="/mutabaah-admin" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('mutabaah')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
           <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M4 4h16v2H4V4zm0 5h16v2H4V9zm0 5h10v2H4v-2z" />
           </svg>
           <span class="text-left">Laporan Mutabaah</span>
-        </a>
+        </a>
 
         <a href="/daftar-kelas" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('daftar-kelas')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
           <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -75,12 +75,20 @@
           <span class="text-left">Kelas</span>
         </a>
 
-        <a href="/mutabaah-mente" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('mutabaah-mente')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+        <a href="{{ route('summary-financial') }}" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('Summary-Financial')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+          <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+            <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+          </svg>
+          <span class="text-left">Summary Financial</span>
+        </a>
+
+        <a href="/mentee-mutabaah" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('mutabaah-mente')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
           <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path d="M5 13l4 4L19 7" />
           </svg>
           <span class="text-left">Mutabaah</span>
-        </a>
+        </a>
 
         <a href="/profile-mente" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('profile-mente')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
           <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -88,6 +96,14 @@
           </svg>
           <span class="text-left">Profile Saya</span>
         </a>
+
+        <a href="/absen" class="flex items-center p-3 font-bold text-[0.9rem] text-[#580720] hover:bg-gradient-to-r from-[#580720] to-[#800020] hover:text-white rounded-lg transition-all duration-200 group <?php echo (request()->is('daftar-kelas')) ? 'bg-gradient-to-r from-[#580720] to-[#800020] text-white' : ''; ?>">
+          <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 20h5v-2a4 4 0 00-5-3.87M9 20H4v-2a4 4 0 015-3.87M12 12a4 4 0 100-8 4 4 0 000 8z" />
+          </svg>
+          <span class="text-left">Absensi</span>
+        </a>
+
       <?php endif; ?>
     </div>
   </div>

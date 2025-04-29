@@ -12,7 +12,7 @@
       <!-- User info -->
       <div class="relative">
         <button id="user-menu-button" class="flex items-center focus:outline-none">
-          <span class="mr-2">Hi, Administrator</span>
+          <span class="mr-2">{{auth()->user()->full_name}}</span>
           <i data-lucide="chevron-down" id="chevron-icon" class="w-4 h-4 transition-transform"></i>
         </button>
         

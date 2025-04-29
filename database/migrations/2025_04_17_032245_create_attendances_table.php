@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('mentee_id')->constrained('mentee_profiles')->onDelete('cascade');
             $table->timestamp('check_in_time');
             $table->string('selfie_url')->nullable();
+            $table->double('latitude', 10, 6)->nullable();
+            $table->double('longitude', 10, 6)->nullable();
             $table->timestamps();
         });
     }

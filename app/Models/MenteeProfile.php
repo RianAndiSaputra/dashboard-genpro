@@ -13,8 +13,10 @@ class MenteeProfile extends Model
     // protected $primaryKey = 'id';
     protected $fillable = [
         'user_id',
+        'tanggal_lahir',
         'kelas_id',
         'company_id',
+        'nama_bisnis',
         'address',
         'profile_picture',
         'bidang_usaha',
@@ -25,11 +27,12 @@ class MenteeProfile extends Model
         'jabatan',
         'komitmen',
         'gambar_laporan',
+        'status_kelas',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'user_id' );
     }
 
     public function company()

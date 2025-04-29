@@ -14,9 +14,19 @@ return new class extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->string('class_name');
+            $table->enum('kategori_kelas', ['Online', 'Tatap Muka', 'Hybrid']);
+            $table->string('lokasi_zoom')->nullable();
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->time('jam_mulai');
+            $table->time('jam_selesai');
+            $table->enum('status', ['Aktif', 'Dijadwalkan', 'Selesai']);
+            $table->text('deskripsi_kelas')->nullable();
+            $table->unsignedInteger('kuota_peserta');
+            $table->string('pdf_path')->nullable();
             $table->unsignedBigInteger('mentor_id');
             $table->unsignedBigInteger('secretary_id');
-            $table->unsignedBigInteger('mentee_id');
+            $table->unsignedBigInteger('mentee_id')->nullable();
             $table->timestamps();
         
             // Foreign keys yang benar

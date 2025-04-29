@@ -14,6 +14,8 @@ class Attendance extends Model
         'mentee_id',
         'check_in_time',
         'selfie_url',
+        'latitude',
+        'longitude',
     ];
 
     protected $casts = [

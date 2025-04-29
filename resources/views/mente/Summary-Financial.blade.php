@@ -21,10 +21,9 @@
             <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
             Export CSV
         </button>
-
-        {{-- <button onclick="openCreateModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center m-3">
+        <button onclick="openCreateModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center m-3">
             <i data-lucide="plus" class="w-5 h-5 mr-2"></i> Tambah Laporan
-        </button> --}}
+        </button>
     </div>
 
     <!-- Date Range Filter -->
@@ -578,7 +577,7 @@
 
     async function fetchFinancialReports(startDate = null, endDate = null) {
         try {
-            let url = '/api/progress/admin';
+            let url = '/api/progress/mentee';
             const params = new URLSearchParams();
             
             if (startDate) params.append('start_date', startDate);

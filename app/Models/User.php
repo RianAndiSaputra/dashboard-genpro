@@ -22,6 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'password',
+        'tanggal_lahir',
         'email',
         'phone',
         'full_name',
@@ -64,7 +65,7 @@ class User extends Authenticatable
 
     public function menteeProfile()
     {
-    return $this->hasOne(MenteeProfile::class, 'mentee_id', 'user_id');
+    return $this->hasOne(MenteeProfile::class, 'user_id', 'user_id');
     }
 
     // Relasi Kelas sebagai Mentor (seorang mentor bisa mengelola banyak kelas)

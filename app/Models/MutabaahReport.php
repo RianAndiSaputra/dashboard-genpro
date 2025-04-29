@@ -23,6 +23,6 @@ class MutabaahReport extends Model
 
     public function mentee()
     {
-        return $this->belongsTo(MenteeProfile::class);
+        return $this->belongsTo(MenteeProfile::class, 'mentee_id', 'id');
     }
 }

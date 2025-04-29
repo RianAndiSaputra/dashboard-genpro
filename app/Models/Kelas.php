@@ -14,10 +14,26 @@ class Kelas extends Model
     protected $fillable = [
         'user_id',
         'class_name',
+        'lokasi_zoom',
+        'kategori_kelas',
+        'tanggal_mulai',
+        'tanggal_selesai',
+        'jam_mulai',
+        'jam_selesai',
+        'status',
+        'deskripsi_kelas',
+        'kuota_peserta',
+        'pdf_path',
         'mentor_id',
         'secretary_id',
         'mentee_id',
         'user_ids',
+    ];
+    protected $casts = [
+        'tanggal_mulai' => 'date',
+        'tanggal_selesai' => 'date',
+        'jam_mulai' => 'datetime:H:i',
+        'jam_selesai' => 'datetime:H:i',
     ];
 
     public function mentee()

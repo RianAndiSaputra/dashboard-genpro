@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\MenteeProfile;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -20,66 +24,130 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|string|unique:users,username|max:255',
-            'email' => 'required|string|email|unique:users,email|max:255',
-            'password' => 'required|string|min:8|confirmed',
-            'phone' => 'required|string|max:20',
-            'full_name' => 'required|string|max:255',
-            'role' => 'sometimes|string|in:admin,mentor,mentee,company,secretary,kepalaSekolah',
-
-            //untuk mentee Profile
-            'address' => 'required|string|max:255',
-            'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
-            'bidang_usaha' => 'required|string|max:255',
-            'badan_hukum' => 'required|string|max:255',
-            'tahun_berdiri' => 'required|string',
-            'jumlah_karyawan' => 'required|integer',
-            'jumlah_omset' => 'required|integer',
-            'jabatan' => 'required|string|max:255',
-            'komitmen' => 'required|in:iya,tidak',
-            'gambar_laporan' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
+            'username'         => 'required|string|unique:users,username|max:255',
+            'email'            => 'required|string|email|unique:users,email|max:255',
+            'full_name'        => 'required|string|max:255',
+            'phone'            => 'required|string|max:20',
+            'tanggal_lahir'    => 'required|string|max:255',
+            'role'             => 'sometimes|string|in:mentee,mentor,admin,company,secretary,kepalaSekolah',
+            
+            // MenteeProfile fields
+            'nama_bisnis'      => 'required|string|max:255',
+            'address'          => 'required|string|max:255',
+            'profile_picture'  => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'bidang_usaha'     => 'required|string|max:255',
+            'badan_hukum'      => 'required|string|max:255',
+            'tahun_berdiri'    => 'required|string',
+            'jumlah_karyawan'  => 'required|integer',
+            'jumlah_omset'     => 'required|integer',
+            'jabatan'          => 'required|string|max:255',
+            'komitmen'         => 'required|in:iya,tidak',
+            'gambar_laporan'   => 'required|file|mimes:pdf,doc,docx,xls,xlsx|max:102400',
         ]);
-
-    //     if ($validator->fails()) {
-    //         return response()->json([
-    //             'status' => false,
-    //             'message' => 'Validation errors',
-    //             'errors' => $validator->errors()
-    //         ], 422);
-    //     }
-
-        $user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'phone' => $request->phone,
-            'full_name' => $request->full_name,
-            'role' => $request->role ?? 'mentee', // Default to mentee if not specified
-        ]);
-
-        $mentee = MenteeProfile::create([
-            'address' => $request->address,
-            'profile_picture' => $request->profile_picture,
-            'bidang_usaha' => $request->bidang_usaha,
-            'badan_hukum' => $request->badan_hukum,
-            'tahun_berdiri' => $request->tahun_berdiri,
-            'jumlah_karyawan' => $request->jumlah_karyawan,
-            'jumlah_omset' => $request->jumlah_omset,
-            'jabatan' => $request->jabatan,
-            'komitmen' => $request->komitmen,
-            'gambar_laporan' => $request->gambar_laporan,
-        ]);
-
-    //     $token = $user->createToken('auth_token')->plainTextToken;
-
-    //     return response()->json([
-    //         'status' => true,
-    //         'message' => 'User registered successfully',
-    //         'user' => $user,
-    //         'access_token' => $token,
-    //         'token_type' => 'Bearer'
-    //     ], 201);
+    
+            // Selalu kembalikan JSON untuk API
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'errors' => $validator->errors()
+        ], 422);
     }
+    
+            DB::beginTransaction();
+            try {
+                // Create User with tanggal_lahir as password
+                $user = User::create([
+                    'username'   => $request->username,
+                    'email'      => $request->email,
+                    'tanggal_lahir'  => $request->tanggal_lahir,
+                    'password'   => Hash::make($request->tanggal_lahir),
+                    'phone'      => $request->phone,
+                    'full_name'  => $request->full_name,
+                    'role'       => $request->role ?? 'mentee',
+                ]);
+                
+                // Store uploaded files
+                $profilePicPath = $request->file('profile_picture')->store('mentee_profiles', 'public');
+                $laporanPath    = $request->file('gambar_laporan')->store('mentee_reports', 'public');
+                
+                // Create MenteeProfile linked to user
+                MenteeProfile::create([
+                    'user_id'         => $user->user_id,
+                    'nama_bisnis'     => $request->nama_bisnis,
+                    'address'         => $request->address,
+                    'profile_picture' => $profilePicPath,
+                    'bidang_usaha'    => $request->bidang_usaha,
+                    'badan_hukum'     => $request->badan_hukum,
+                    'tahun_berdiri'   => $request->tahun_berdiri,
+                    'jumlah_karyawan' => $request->jumlah_karyawan,
+                    'jumlah_omset'    => $request->jumlah_omset,
+                    'jabatan'         => $request->jabatan,
+                    'komitmen'        => $request->komitmen,
+                    'gambar_laporan'  => $laporanPath,
+                ]);
+                
+                DB::commit();
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Registrasi mentee berhasil!',
+                    'redirect' => route('mentee.index')
+                ]);
+                
+            } catch (\Exception $e) {
+                DB::rollBack();
+                
+                // Hapus file yang sudah diupload jika ada error
+                if (isset($profilePicPath)) {
+                    Storage::disk('public')->delete($profilePicPath);
+                }
+                if (isset($laporanPath)) {
+                    Storage::disk('public')->delete($laporanPath);
+                }
+    
+        DB::beginTransaction();
+        try {
+            // Create User with tanggal_lahir as password
+            $user = User::create([
+                'username'   => $request->username,
+                'email'      => $request->email,
+                'tanggal_lahir'  => $request->tanggal_lahir,
+                'password'   => Hash::make($request->tanggal_lahir),
+                'phone'      => $request->phone,
+                'full_name'  => $request->full_name,
+                'role'       => $request->role ?? 'mentee',
+            ]);
+            
+            // Store uploaded files
+            $profilePicPath = $request->file('profile_picture')->store('mentee_profiles', 'public');
+            $laporanPath    = $request->file('gambar_laporan')->store('mentee_reports', 'public');
+            
+            // Create MenteeProfile linked to user
+            MenteeProfile::create([
+                'user_id'         => $user->user_id,
+                'nama_bisnis'     => $request->nama_bisnis,
+                'address'         => $request->address,
+                'profile_picture' => $profilePicPath,
+                'bidang_usaha'    => $request->bidang_usaha,
+                'badan_hukum'     => $request->badan_hukum,
+                'tahun_berdiri'   => $request->tahun_berdiri,
+                'jumlah_karyawan' => $request->jumlah_karyawan,
+                'jumlah_omset'    => $request->jumlah_omset,
+                'jabatan'         => $request->jabatan,
+                'komitmen'        => $request->komitmen,
+                'gambar_laporan'  => $laporanPath,
+            ]);
+            
+            DB::commit();
+            
+            return redirect()->route('mentee.index')->with('success', 'Registrasi mentee berhasil!');
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Terjadi kesalahan server: '.$e->getMessage())->withInput();
+        }
+    }
+}
 
     /**
      * Handle user login request
